@@ -6,14 +6,34 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "vite build"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "discord.js": "^14.19.3",
     "dotenv": "^16.3.1",
-    "rate-limiter-flexible": "^3.0.0"
+    "rate-limiter-flexible": "^3.0.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "lucide-react": "^0.263.1",
+    "postcss": "^8.4.32",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "@eslint/js": "^9.6.0",
+    "@types/node": "^20.5.2",
+    "eslint": "^9.6.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "typescript-eslint": "^8.0.1"
   }
 }

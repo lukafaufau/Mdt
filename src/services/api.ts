@@ -1,9 +1,9 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 const USE_SUPABASE = import.meta.env.VITE_SUPABASE_URL;
-const USE_MOCK_DATA = !USE_SUPABASE && !import.meta.env.VITE_API_URL;
+const USE_MOCK_DATA = true; // Force mock data for now
 
 // Import Supabase service
-import { SupabaseService } from './supabase';
+// import { SupabaseService } from './supabase';
 
 class APIService {
   private token: string | null = null;
@@ -56,36 +56,36 @@ class APIService {
       // Router vers les bonnes méthodes Supabase selon l'endpoint
       switch (endpoint) {
         case '/dashboard/activities':
-          return await SupabaseService.getRecentActivities();
+          return []; // await SupabaseService.getRecentActivities();
         
         case '/dashboard/warrants':
-          return await SupabaseService.getActiveWarrants();
+          return []; // await SupabaseService.getActiveWarrants();
         
         case '/dashboard/announcements':
-          return await SupabaseService.getActiveAnnouncements();
+          return []; // await SupabaseService.getActiveAnnouncements();
         
         case '/dashboard/bolos':
-          return await SupabaseService.getActiveBOLOs();
+          return []; // await SupabaseService.getActiveBOLOs();
         
         case '/dashboard/dispatch':
-          return await SupabaseService.getDispatchCalls();
+          return []; // await SupabaseService.getDispatchCalls();
         
         default:
           if (endpoint.startsWith('/profiles/search')) {
             const query = new URL(`http://localhost${endpoint}`).searchParams.get('q') || '';
-            return await SupabaseService.searchProfiles(query);
+            return []; // await SupabaseService.searchProfiles(query);
           }
           if (endpoint.startsWith('/vehicles/search')) {
             const query = new URL(`http://localhost${endpoint}`).searchParams.get('q') || '';
-            return await SupabaseService.searchVehicles(query);
+            return []; // await SupabaseService.searchVehicles(query);
           }
           if (endpoint === '/incidents') {
             const status = new URL(`http://localhost${endpoint}`).searchParams.get('status') || undefined;
-            return await SupabaseService.getIncidents(status);
+            return []; // await SupabaseService.getIncidents(status);
           }
           if (endpoint === '/incidents' && method === 'POST') {
             const body = JSON.parse(options.body as string);
-            return await SupabaseService.createIncident(body);
+            return { id: 'mock-id' }; // await SupabaseService.createIncident(body);
           }
           
           return [];
@@ -215,23 +215,23 @@ class APIService {
 
   // Profils
   async searchProfiles(query: string) {
-    if (USE_SUPABASE) {
-      return SupabaseService.searchProfiles(query);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.searchProfiles(query);
+    // }
     return this.request(`/profiles/search?q=${encodeURIComponent(query)}`);
   }
 
   async getProfile(id: string) {
-    if (USE_SUPABASE) {
-      return SupabaseService.getProfile(id);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.getProfile(id);
+    // }
     return this.request(`/profiles/${id}`);
   }
 
   async createProfile(profileData: any) {
-    if (USE_SUPABASE) {
-      return SupabaseService.createProfile(profileData);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.createProfile(profileData);
+    // }
     return this.request('/profiles', {
       method: 'POST',
       body: JSON.stringify(profileData),
@@ -239,16 +239,16 @@ class APIService {
   }
   // Véhicules
   async searchVehicles(query: string) {
-    if (USE_SUPABASE) {
-      return SupabaseService.searchVehicles(query);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.searchVehicles(query);
+    // }
     return this.request(`/vehicles/search?q=${encodeURIComponent(query)}`);
   }
 
   async createVehicle(vehicleData: any) {
-    if (USE_SUPABASE) {
-      return SupabaseService.createVehicle(vehicleData);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.createVehicle(vehicleData);
+    // }
     return this.request('/vehicles', {
       method: 'POST',
       body: JSON.stringify(vehicleData),
@@ -256,17 +256,17 @@ class APIService {
   }
   // Incidents
   async getIncidents(status?: string) {
-    if (USE_SUPABASE) {
-      return SupabaseService.getIncidents(status);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.getIncidents(status);
+    // }
     const params = status ? `?status=${status}` : '';
     return this.request(`/incidents${params}`);
   }
 
   async createIncident(incidentData: any) {
-    if (USE_SUPABASE) {
-      return SupabaseService.createIncident(incidentData);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.createIncident(incidentData);
+    // }
     return this.request('/incidents', {
       method: 'POST',
       body: JSON.stringify(incidentData),
@@ -275,9 +275,9 @@ class APIService {
 
   // Mandats
   async createWarrant(warrantData: any) {
-    if (USE_SUPABASE) {
-      return SupabaseService.createWarrant(warrantData);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.createWarrant(warrantData);
+    // }
     return this.request('/warrants', {
       method: 'POST',
       body: JSON.stringify(warrantData),
@@ -286,9 +286,9 @@ class APIService {
 
   // BOLOs
   async createBOLO(boloData: any) {
-    if (USE_SUPABASE) {
-      return SupabaseService.createBOLO(boloData);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.createBOLO(boloData);
+    // }
     return this.request('/bolos', {
       method: 'POST',
       body: JSON.stringify(boloData),
@@ -297,9 +297,9 @@ class APIService {
 
   // Annonces
   async createAnnouncement(announcementData: any) {
-    if (USE_SUPABASE) {
-      return SupabaseService.createAnnouncement(announcementData);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.createAnnouncement(announcementData);
+    // }
     return this.request('/announcements', {
       method: 'POST',
       body: JSON.stringify(announcementData),
@@ -308,9 +308,9 @@ class APIService {
 
   // Dispatch
   async createDispatchCall(callData: any) {
-    if (USE_SUPABASE) {
-      return SupabaseService.createDispatchCall(callData);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.createDispatchCall(callData);
+    // }
     return this.request('/dispatch', {
       method: 'POST',
       body: JSON.stringify(callData),
@@ -319,9 +319,9 @@ class APIService {
 
   // Casier judiciaire
   async addCriminalRecord(recordData: any) {
-    if (USE_SUPABASE) {
-      return SupabaseService.addCriminalRecord(recordData);
-    }
+    // if (USE_SUPABASE) {
+    //   return SupabaseService.addCriminalRecord(recordData);
+    // }
     return this.request('/criminal-records', {
       method: 'POST',
       body: JSON.stringify(recordData),

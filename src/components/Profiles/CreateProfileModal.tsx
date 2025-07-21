@@ -33,22 +33,25 @@ const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ isOpen, onClose
 
     try {
       // Créer le profil
-      const profile = await apiService.createProfile({
+      const profileData = {
         first_name: formData.first_name,
         last_name: formData.last_name,
         date_of_birth: formData.date_of_birth,
         license_number: formData.license_number,
         file_number: formData.file_number,
         photo_url: formData.photo_url || undefined
-      });
+      };
+      
+      // Simuler la création du profil
+      const profile = { id: Date.now().toString(), ...profileData };
 
       // Ajouter l'adresse si fournie
-      if (formData.address.street && formData.address.city) {
-        await apiService.addAddress({
-          profile_id: profile.id,
-          ...formData.address
-        });
-      }
+      // if (formData.address.street && formData.address.city) {
+      //   await apiService.addAddress({
+      //     profile_id: profile.id,
+      //     ...formData.address
+      //   });
+      // }
 
       onProfileCreated();
       onClose();

@@ -36,6 +36,7 @@ export const mockProfiles: Profile[] = [
     dateOfBirth: '1985-03-15',
     licenseNumber: 'DL123456789',
     fileNumber: 'P001234',
+    photo: undefined,
     addresses: [
       {
         id: '1',
@@ -55,7 +56,8 @@ export const mockProfiles: Profile[] = [
         officer: 'Whatever Jordan',
         status: 'convicted'
       }
-    ]
+    ],
+    medicalRecord: undefined
   }
 ];
 
