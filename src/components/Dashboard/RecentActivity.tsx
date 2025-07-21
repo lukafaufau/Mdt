@@ -1,91 +1,34 @@
 import React from 'react';
-import { Eye, Clock } from 'lucide-react';
-import { mockActivities } from '../../data/mockData';
+import { Eye, Plus } from 'lucide-react';
 
 const RecentActivity: React.FC = () => {
-  const [activities, setActivities] = React.useState(mockActivities);
+  const [activities, setActivities] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
-  React.useEffect(() => {
-    // Simuler un chargement
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, []);
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'created':
-        return 'bg-green-600';
-      case 'updated':
-        return 'bg-yellow-600';
-      case 'deleted':
-        return 'bg-red-600';
-      default:
-        return 'bg-gray-600';
-    }
-  };
-
-  const getTimeAgo = (timestamp: string) => {
-    const now = new Date();
-    const time = new Date(timestamp);
-    const diffInMinutes = Math.floor((now.getTime() - time.getTime()) / (1000 * 60));
-    
-    if (diffInMinutes < 1) return 'Just now';
-    if (diffInMinutes < 60) return `${diffInMinutes} minutes ago`;
-    
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) return `${diffInHours} hours ago`;
-    
-    const diffInDays = Math.floor(diffInHours / 24);
-    return `${diffInDays} days ago`;
+  const handleCreateActivity = () => {
+    // TODO: Implement create activity modal
+    console.log('Create new activity');
   };
 
   return (
     <div className="bg-gray-800 rounded-lg border border-gray-700">
       <div className="p-6 border-b border-gray-700">
-        <h2 className="text-xl font-bold text-white">Recent Activity</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-white">Recent Activity</h2>
+          <button
+            onClick={handleCreateActivity}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2 transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Create New Activity</span>
+          </button>
+        </div>
       </div>
       
       <div className="p-6">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="text-left text-gray-400 text-sm">
-                <th className="pb-4">Type</th>
-                <th className="pb-4">Category</th>
-                <th className="pb-4">Done by</th>
-                <th className="pb-4">Time ago</th>
-                <th className="pb-4"></th>
-              </tr>
-            </thead>
-            <tbody className="space-y-2">
-              {activities.map((activity) => (
-                <tr key={activity.id} className="border-t border-gray-700">
-                  <td className="py-3">
-                    <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium text-white ${getTypeColor(activity.type)}`}>
-                      {activity.type.toUpperCase()}
-                    </span>
-                  </td>
-                  <td className="py-3 text-gray-300 capitalize">{activity.category}</td>
-                  <td className="py-3 text-gray-300">{activity.user}</td>
-                  <td className="py-3 text-gray-400 text-sm">{getTimeAgo(activity.timestamp)}</td>
-                  <td className="py-3">
-                    <button className="p-1 text-gray-400 hover:text-white transition-colors">
-                      <Eye className="w-4 h-4" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {loading && (
-                <tr>
-                  <td colSpan={5} className="py-8 text-center text-gray-400">
-                    Chargement des activités...
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+        <div className="text-center text-gray-500 py-8">
+          <p>No recent activities</p>
+          <p className="text-sm mt-2">Activities will appear here when actions are performed</p>
         </div>
       </div>
     </div>

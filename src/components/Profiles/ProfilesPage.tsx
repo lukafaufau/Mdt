@@ -55,10 +55,10 @@ const ProfilesPage: React.FC = () => {
         </div>
         <button 
           onClick={() => setShowCreateModal(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2 transition-colors"
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2 transition-colors"
         >
           <Plus className="w-4 h-4" />
-          <span>Nouveau Profil</span>
+          <span>Create New Profile</span>
         </button>
       </div>
 
